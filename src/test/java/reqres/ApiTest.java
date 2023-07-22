@@ -83,4 +83,65 @@ public class ApiTest extends TestBase {
 
     }
 
+    @Test
+    void registerUserInReqres() {
+
+        String registerUser = "{ \"email\": \"eve.holt@reqres.in\", \"password\": \"pistol\" }";
+
+        given()
+                .log().uri()
+                .log().body()
+                .log().method()
+                .contentType(JSON)
+                .body(registerUser)
+                .when()
+                .post("/register")
+                .then()
+                .log().status()
+                .statusCode(200)
+                .body("token", is("QpwL5tke4Pnpja7X4"))
+                .body("id", is(4));
+    }
+
+
+    @Test
+    void loginUnsuccessfulUserInReqres() {
+
+        String loginUser = "{ \"email\": \"peter@klaven\", \"error\": \"Missing password\"}";
+
+        given()
+                .log().uri()
+                .log().body()
+                .log().method()
+                .contentType(JSON)
+                .body(loginUser)
+                .when()
+                .post("/login")
+                .then()
+                .log().status()
+                .statusCode(400)
+                .body("error", is("Missing password"));
+    }
+
+    @Test
+    void putUserInReqres() {
+
+        String loginUser = "{ \"name\": \"morpheus\", \"job\": \"zion resident\" }";
+
+        given()
+                .log().uri()
+                .log().body()
+                .log().method()
+                .contentType(JSON)
+                .body(loginUser)
+                .when()
+                .put("/users/2")
+                .then()
+                .log().status()
+                .statusCode(200)
+                .body("name", is("morpheus"),
+                        "job", is("zion resident"));
+    }
+
+
 }
