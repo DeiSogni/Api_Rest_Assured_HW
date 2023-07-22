@@ -1,0 +1,4 @@
+0Request URI:	https://reqres.in/api/api/users/2
+Body:			<none>
+Request method:	DELETE
+HTTP/1.1 204 No Content

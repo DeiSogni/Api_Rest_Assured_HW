@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="reqres.ApiTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-07-22T12:38:52" hostname="LAPTOP-DAAEQ1TT" time="1.255">
+  <properties/>
+  <testcase name="deleteUserInReqres()" classname="reqres.ApiTest" time="1.255"/>
+  <system-out><![CDATA[Request URI:	https://reqres.in/api/api/users/2
+Body:			<none>
+Request method:	DELETE
+HTTP/1.1 204 No Content
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
