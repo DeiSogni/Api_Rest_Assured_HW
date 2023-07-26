@@ -2,6 +2,7 @@ package reqres;
 
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.*;
@@ -18,12 +19,16 @@ public class ApiTest extends TestBase {
                 .log().body()
                 .contentType(JSON)
                 .when()
-                .get("users?page=2")
+                .get("/users/2")
                 .then()
                 .log().status()
                 .log().body()
                 .statusCode(200)
-                .body("data", everyItem(notNullValue()));
+                .body("data.size()", is(5),
+                        "data.email", is("janet.weaver@reqres.in"),
+                        "data.first_name", is("Janet"),
+                        "data.last_name", is("Weaver"),
+                        "data.avatar", is( baseURI + "/img/faces/2-image.jpg"));
 
     }
 
@@ -49,6 +54,7 @@ public class ApiTest extends TestBase {
 
 
     @Test
+
     void updateUserInReqres() {
         String updateUser = "{ \"name\": \"morpheus\", \"job\": \"zion resident\" }";
 
