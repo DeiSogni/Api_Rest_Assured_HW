@@ -18,11 +18,11 @@ public class ApiTest extends TestBase {
     void singleUserReqres() {
 
         SingleUserDto singleUser = step("Send request", () ->
-        given(UserSpec.loginRequestSpec)
+        given(ReqresSpec.userRequestSpec)
                 .when()
                 .get("/users/2")
                 .then()
-                .spec(UserSpec.loginResponseSpecification200)
+                .spec(ReqresSpec.userResponseSpecification200)
                 .extract().as(SingleUserDto.class));
 
             step("Check Response", () -> {
@@ -45,12 +45,12 @@ public class ApiTest extends TestBase {
         createUser.setJob("leader");
 
         CreateUserBodyModel checkUserBody = step("Send request", () ->
-                given(CreateUserSpec.createUserRequestSpec)
+                given(ReqresSpec.userRequestSpec)
                         .body(createUser)
                         .when()
                         .post("/api/users")
                         .then()
-                        .spec(CreateUserSpec.createUserSpecification201)
+                        .spec(ReqresSpec.createSpecification201)
                         .extract().as(CreateUserBodyModel.class));
 
         step("Check Response", () -> {
@@ -67,12 +67,12 @@ public class ApiTest extends TestBase {
         updateUser.setJob("zion resident");
 
         CreateUserBodyModel checkUserBody = step("Send request", () ->
-                given(UpdateUserSpec.updateUserRequestSpec)
+                given(ReqresSpec.userRequestSpec)
                 .body(updateUser)
                 .when()
                 .put("/api/users/2")
                 .then()
-                .spec(UpdateUserSpec.updateUserSpecification200)
+                .spec(ReqresSpec.userResponseSpecification200)
                 .extract().as(CreateUserBodyModel.class));
 
         step("Check Response", () -> {
@@ -85,11 +85,11 @@ public class ApiTest extends TestBase {
     @Test
     void deleteUserInReqres() {
         step("Send request", () ->
-        given(DeleteUserSpec.deleteUserRequestSpec)
+        given(ReqresSpec.userRequestSpec)
                 .when()
                 .delete("/api/users/2")
                 .then()
-                .spec(DeleteUserSpec.deleteUserSpecification204));
+                .spec(ReqresSpec.deleteSpecification204));
 
     }
 
@@ -102,12 +102,12 @@ public class ApiTest extends TestBase {
 
 
     RegisterResponseDto registerResponse = step("Send request", () ->
-            given(RegisterSpec.registerRequestSpec)
+            given(ReqresSpec.userRequestSpec)
                 .body(registerUser)
                 .when()
                 .post("/register")
                 .then()
-                .spec(RegisterSpec.registerResponseSpecification200)
+                .spec(ReqresSpec.userResponseSpecification200)
                 .extract().as(RegisterResponseDto.class));;
 
         step("Check Response", () -> {
@@ -124,12 +124,12 @@ public class ApiTest extends TestBase {
         login.setEmail("peter@klaven");
 
         LoginResponseErrorDto loginError = step("Send request", () ->
-                given(UserSpec.loginRequestSpec)
+                given(ReqresSpec.userRequestSpec)
                 .body(login)
                 .when()
                 .post("/login")
                 .then()
-                .spec(UserSpec.loginResponseSpecification400)
+                .spec(ReqresSpec.loginErrorResponseSpecification400)
                 .extract().as(LoginResponseErrorDto.class));
 
         step("Check Response", () -> {
@@ -141,11 +141,11 @@ public class ApiTest extends TestBase {
     void getUsersListInReqresStatus200() {
 
         ListUsersDto usersList = step("Send request", () ->
-                given(UsersListSpec.usersListRequestSpec)
+                given(ReqresSpec.userRequestSpec)
                         .when()
                         .get("/users?page=2")
                         .then()
-                        .spec(UsersListSpec.usersListResponseSpecification200)
+                        .spec(ReqresSpec.userResponseSpecification200)
                         .extract().as(ListUsersDto.class));
 
         step("Check Response", () -> {
@@ -175,11 +175,11 @@ public class ApiTest extends TestBase {
     void getUsersListInReqresStatus200CheckBodyWithSchema() {
 
          step("Send request", () ->
-                given(UsersListSpec.usersListRequestSpec)
+                given(ReqresSpec.userRequestSpec)
                         .when()
                         .get("/users?page=2")
                         .then()
-                        .spec(UsersListSpec.usersListResponseSpecification200)
+                        .spec(ReqresSpec.userResponseSpecification200)
                         .body(matchesJsonSchemaInClasspath("schemas/user-schema.json")));
     }
 }
